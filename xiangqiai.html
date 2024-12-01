@@ -1,0 +1,292 @@
+<html>
+    <title>[新]象棋妙手</title>
+    <meta charset="utf-8">
+    <style type="text/css"><!--
+body {
+  background: url("./background.gif");
+}
+
+span.td {
+  display: inline-block;
+}
+
+div.label {
+  font-size: 15px;
+  padding:2px;
+}
+
+select {
+  font-size: 15px;
+  width: 118px;
+  padding:2px;
+}
+
+option {
+  font-size: 15px;
+}
+
+input.button {
+  font-size: 18px;
+  width: 118px;
+    text-align: center; /* 文字居中 */
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer; /* 鼠标悬停时显示指针形状 */
+    border-radius: 10px; /* 圆角边框 */
+    transition: all 0.3s ease 0s; /* 过渡效果 */
+}
+input.button:hover {
+    background-color: #C0C0C0; /* 鼠标悬停时的背景颜色 */
+}
+
+label {
+  font-size: 15px;
+}
+    --></style>
+    <link rel="icon" href="./xq.jpg" >
+  <head></head>
+  <body>
+    <div style="height:-10px"></div>
+    <script src="jquery.js"></script>
+    <b><div style="text-align:center;font-size:22px;font-family:粗体"><font color="green">[新]象棋妙手</font> <div style="text-align:center;font-size:10px;font-family:粗体">作者：何丰帆</div></div></b>
+    <div style="text-align:center;white-space:nowrap">
+        <span class="td" style="vertical-align:top">
+        
+      <span class="td" style="margin-right:20px">
+        <div id="container" style="font-size:20px;font-family:黑体">正在加载，这可能需要5-10秒钟左右，请稍后...</div>
+      </span><span class="td" style="vertical-align:top;width:20px">
+          <div style="text-align:left">
+              <div id="linkweb">
+            <script>setInterval("linkweb.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
+            </script>
+        </div>
+        <div class="label">执棋(执红先行)</div>
+        <div><select id="selMoveMode" size="1">
+          <option selected value="0">我方执红</option>
+          <option value="1">电脑执红</option>
+          <option value="2">不用电脑</option>
+        </select></div>
+        <div style="height:0px"></div>
+        <div style="padding-top:3px"><input type="button" class="button" value="重新开始" onclick="restart_click()"></div>
+        <div style="padding-top:3px"><input type="button" class="button" value="悔棋" onclick="retract_click()"></div>
+        <div style="padding-top:3px"><input type="button" class="button" value="提示" onclick="tip_click()"></div>
+        <div style="height:0px"></div>
+        <div class="label">红方让子</div>
+        <div><select id="selHandicap" style="padding:3px">
+          <option selected value="0">不让子</option>
+          <option value="1">让左马</option>
+          <option value="2">让双马</option>
+          <option value="3">让九子</option>
+          <option value="4">让五兵</option>
+        </select></div>
+        <div class="label">fen（重新开始后生效）</div>
+        <input type="text" id="inputValue" size="12"/>
+        <div style="height:0px"></div>
+        <div class="label">电脑水平</div>
+            <div><select id="selLevel" size="2" onchange="level_change()" style="padding:3px">
+        <option value="1000">入门</option>
+        <option value="1200"selected>云棋士</option>
+        </select></div>
+        <div style="height:0px"></div>
+        <div><input type="checkbox" class="checkbox" id="chkAnimated" checked onclick="board.animated = checked"><label for="chkAnimated">动画</label></input></div>
+        <div><input type="checkbox" class="checkbox" checked onclick="board.setSound(checked)"><label for="chkSound">音效</label></input></div>
+        <div style="height:0px"></div>
+        <div class="label">记录(结束可复盘)</div>
+        <div><select id="selMoveList" size="10" style="font-family:宋体" onchange="moveList_change()">
+          <option selected value="0">=== 开始 ===</option>
+        </select></div><dd></dd>
+      </div></span>
+    </div>
+    
+    <script type="text/javascript"><!--
+"use strict";
+
+var resources = [
+  "images/ba.gif",
+  "images/bb.gif",
+  "images/bc.gif",
+  "images/bk.gif",
+  "images/bkm.gif",
+  "images/bn.gif",
+  "images/bp.gif",
+  "images/br.gif",
+  "images/ra.gif",
+  "images/rb.gif",
+  "images/rc.gif",
+  "images/rk.gif",
+  "images/rkm.gif",
+  "images/rn.gif",
+  "images/rp.gif",
+  "images/rr.gif",
+  "images/oo.gif",
+  "images/oos.gif",
+  "images/board.jpg",
+  "images/thinking.gif",
+  "sounds/click.wav",
+  "sounds/illegal.wav",
+  "sounds/move.wav",
+  "sounds/move2.wav",
+  "sounds/capture.wav",
+  "sounds/capture2.wav",
+  "sounds/check.wav",
+  "sounds/check2.wav",
+  "sounds/win.wav",
+  "sounds/draw.wav",
+  "sounds/loss.wav",
+  "sounds/newgame.wav",
+  "book.js",
+  "position.js",
+  "search.js",
+  "board.js",
+  "cchess.js",
+  null
+];
+resources.pop();
+
+var i;
+var n = resources.length;
+for (i = 0; i < resources.length; i ++) {
+  var xhr;
+  if (typeof XMLHttpRequest == "undefined") {
+    xhr = new ActiveXObject("MSXML2.XMLHttp");
+  } else {
+    xhr = new XMLHttpRequest();
+  }
+  xhr.onreadystatechange = function() {
+    if (this.readyState < 4) {
+      return;
+    }
+    n --;
+    if (n > 0) {
+      return;
+    }
+     loadScript("book.js");
+    loadScript("position.js");
+    loadScript("search.js");
+    loadScript("board.js");
+    loadScript("cchess.js");
+    container.innerHTML = "";
+    setTimeout(main, 100);
+  };
+  if (typeof xhr.onerror != "undefined") {
+  }
+  xhr.open("GET", resources[i], true);
+  xhr.send(null);
+}
+
+
+var STARTUP_FEN = [
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKABNR w",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/RNBAKAB1R w",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/P1P1P1P1P/1C5C1/9/R1BAKAB1R w",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/9/1C5C1/9/RN2K2NR w",
+  "rnbakabnr/9/1c5c1/p1p1p1p1p/9/9/9/1C5C1/9/RNBAKABNR w",
+];
+
+function createOption(text, value, ie8) {
+  var opt = document.createElement("option");
+  opt.selected = true;
+  opt.value = value;
+  if (ie8) {
+    opt.text = text;
+  } else {
+    opt.innerHTML = text.replace(/ /g, "&nbsp;");
+  }
+  return opt;
+}
+
+function loadScript(file) {
+  var script = document.createElement("script");
+  script.setAttribute("type","text/javascript");
+  script.setAttribute("src", file);
+  document.body.appendChild(script);
+}
+
+var board;
+
+function main() {
+  board = new Board(container, "images/", "sounds/");
+  board.setSearch(21);
+  board.millis = 1200;
+  board.computer = 1;
+  board.onAddMove = function() {
+      if (!board.busy){
+          return
+      }
+      var html='<div style="text-align:center;font-size:13.7px;">Fen: '+board.pos.toFen()+'</div>'
+    document.getElementById('f').innerHTML=html;
+    
+    var counter = (board.pos.mvList.length >> 1);
+    var space = (counter > 99 ? "   " : "  ");
+    counter = (counter > 9 ? "" : " ") + counter + ".";
+    var text = (board.pos.sdPlayer == 0 ? space : counter) + board.pos.convertMvToCn(board.mvLast,true);
+    var value = "" + board.mvLast;
+    try {
+      selMoveList.add(createOption(text, value, false));
+    } catch (e) {
+      selMoveList.add(createOption(text, value, true));
+    }
+    selMoveList.scrollTop = selMoveList.scrollHeight;
+  };
+}
+function level_change() {
+    let tt = document.getElementById("selLevel")
+    board.millis = tt.options[tt.selectedIndex].value;
+
+}
+function restart_click() {
+    var html=''
+    document.getElementById('f').innerHTML=html;
+    document.getElementById('m').innerHTML=html;
+    document.getElementById('s').innerHTML=html;
+  selMoveList.options.length = 1;
+  selMoveList.selectedIndex = 0;
+  board.restart(document.getElementById("inputValue").value?document.getElementById("inputValue").value:STARTUP_FEN[selHandicap.selectedIndex]);
+}
+
+function retract_click() {
+  for (var i = board.pos.mvList.length; i < selMoveList.options.length; i ++) {
+    board.pos.makeMove(parseInt(selMoveList.options[i].value));
+  }
+  board.retract();
+}
+
+function tip_click() {
+  board.tip();
+  setTimeout(function() {
+			}, 200);
+}
+
+function moveList_change() {
+  if (board.result == RESULT_UNKNOWN) {
+    selMoveList.selectedIndex = selMoveList.options.length - 1;
+    return;
+  }
+  var from = board.pos.mvList.length;
+  var to = selMoveList.selectedIndex;
+  if (from == to + 1) {
+    return;
+  }
+  if (from > to + 1) {
+    for (var i = to + 1; i < from; i ++) {
+      board.pos.undoMakeMove();
+    }
+  } else {
+    for (var i = from; i <= to; i ++) {
+      board.pos.makeMove(parseInt(selMoveList.options[i].value));
+    }
+  }
+  board.flushBoard();
+}
+    --></script>
+    <div class="left" id="left">
+        <style type="text/css">
+            div{
+                float: top;}
+        </style>
+        <div style="text-align:center;font-size:15px;"><div id="f"></div></div>
+        <div id="m"><div style="text-align:center;font-size:15px;">棋盘不显示？请使用Chrome内核浏览器，或者360极速模式。</div></div>
+    <div style="text-align:center;font-size:15px;"><div id="s"></div></div>
+    </div>
+  </body>
+</html>
