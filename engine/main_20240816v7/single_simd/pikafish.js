@@ -204,7 +204,7 @@ function Ca(a) {
   throw a;
 }
 var Da = a => a.startsWith("data:application/octet-stream;base64,"), F;
-F = "pikafish.wasm";
+F = "https://xiangqiai.com/engine/main_20240816v7/multi_simd_relaxed/pikafish.wasm";
 if (!Da(F)) {
   var Ea = F;
   F = f.locateFile ? f.locateFile(Ea, x) : x + Ea;
