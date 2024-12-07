@@ -204,7 +204,7 @@ function Ca(a) {
   throw a;
 }
 var Da = a => a.startsWith("data:application/octet-stream;base64,"), F;
-F = "https://xiangqiai.com/engine/main_20240816v7/multi_simd_relaxed/pikafish.wasm";
+F = "/pikafish.wasm";
 if (!Da(F)) {
   var Ea = F;
   F = f.locateFile ? f.locateFile(Ea, x) : x + Ea;
@@ -227,9 +227,10 @@ function Ga(a) {
   }).catch(() => Fa(a));
 }
 function Ha(a, b, c) {
+  alert(a)
   return Ga(a).then(d => WebAssembly.instantiate(d, b)).then(c, d => {
     t(`failed to asynchronously prepare wasm: ${d}`);
-    Ca(d);
+    Ca('https://xiangqiai.com/engine/main_20240816v7/multi_simd_relaxed/pikafish.wasm');
   });
 }
 function Ia(a, b) {
