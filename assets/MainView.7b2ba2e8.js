@@ -351,11 +351,11 @@ class Y1 {
             if (e.indexOf("multi") !== -1)
                 this.Mode = "multi",
                 $1.import(ya + "/" + e + "/pikafish.js").then(()=>{
-                    console.log('https://xiangqiai.com/' + ya + "/" + e + "/"),
+                    console.log(window.location.origin + ya + "/" + e + "/"),
                     self.Pikafish({
                         onReceiveStdout: this.onReceiveOutput,
                         onExit: this.onExit,
-                        locateFile: r=>r === "pikafish.data" ? 'https://xiangqiai.com/' + ya + "/data/" + r : 'https://xiangqiai.com/' + ya + "/" + e + "/" + r,
+                        locateFile: r=>r === "pikafish.data" ? window.location.origin + ya + "/data/" + r : window.location.origin + ya + "/" + e + "/" + r,
                         setStatus: r=>{
                             this.DownloadEvent != null && this.DownloadEvent(r)
                         }
