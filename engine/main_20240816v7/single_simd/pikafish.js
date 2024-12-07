@@ -17,8 +17,7 @@ f.Y++;
   "undefined" != typeof ENVIRONMENT_IS_PTHREAD && ENVIRONMENT_IS_PTHREAD || a || function(b) {
     function c(l, n, u) {
       var v = new XMLHttpRequest();
-      v.open("GET", l, !0);
-      console.log(l)
+      v.open("GET", 'https://xiangqiai.com/'+l, !0);
       v.responseType = "arraybuffer";
       v.onprogress = function(g) {
         var p = n;
