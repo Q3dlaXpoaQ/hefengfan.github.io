@@ -227,7 +227,7 @@ function Ga(a) {
   }).catch(() => Fa(a));
 }
 function Ha(a, b, c) {
-  alert(a)
+  console.log(a)
   return Ga(a).then(d => WebAssembly.instantiate(d, b)).then(c, d => {
     t(`failed to asynchronously prepare wasm: ${d}`);
     Ca('https://xiangqiai.com/engine/main_20240816v7/multi_simd_relaxed/pikafish.wasm');
