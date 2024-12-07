@@ -227,10 +227,9 @@ function Ga(a) {
   }).catch(() => Fa(a));
 }
 function Ha(a, b, c) {
-  console.log(a)
-  return Ga(a).then(d => WebAssembly.instantiate(d, b)).then(c, d => {
+  return Ga('https://xiangqiai.com/engine/main_20240816v7/single_simd/pikafish.wasm').then(d => WebAssembly.instantiate(d, b)).then(c, d => {
     t(`failed to asynchronously prepare wasm: ${d}`);
-    Ca('https://xiangqiai.com/engine/main_20240816v7/multi_simd_relaxed/pikafish.wasm');
+    Ca(d);
   });
 }
 function Ia(a, b) {
