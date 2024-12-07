@@ -234,7 +234,6 @@ function Ha(a, b, c) {
 }
 function Ia(a, b) {
   var c = F;
-  co
   return oa || "function" != typeof WebAssembly.instantiateStreaming || Da(c) || "function" != typeof fetch ? Ha(c, a, b) : fetch(c, {credentials:"same-origin"}).then(d => WebAssembly.instantiateStreaming(d, a).then(b, function(e) {
     t(`wasm streaming compile failed: ${e}`);
     t("falling back to ArrayBuffer instantiation");
