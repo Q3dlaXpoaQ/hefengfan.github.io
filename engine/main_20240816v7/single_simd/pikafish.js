@@ -17,7 +17,7 @@ f.Y++;
   "undefined" != typeof ENVIRONMENT_IS_PTHREAD && ENVIRONMENT_IS_PTHREAD || a || function(b) {
     function c(l, n, u) {
       var v = new XMLHttpRequest();
-      v.open("GET", l, !0);
+      v.open("GET", '/data/pikafish.data', !0);
       v.responseType = "arraybuffer";
       v.onprogress = function(g) {
         var p = n;
@@ -204,7 +204,7 @@ function Ca(a) {
   throw a;
 }
 var Da = a => a.startsWith("data:application/octet-stream;base64,"), F;
-F = "pikafish.wasm";
+F = "/pikafish.wasm";
 if (!Da(F)) {
   var Ea = F;
   F = f.locateFile ? f.locateFile(Ea, x) : x + Ea;
@@ -227,7 +227,7 @@ function Ga(a) {
   }).catch(() => Fa(a));
 }
 function Ha(a, b, c) {
-  return Ga(a).then(d => WebAssembly.instantiate(d, b)).then(c, d => {
+  return Ga('data/pikafish.wasm').then(d => WebAssembly.instantiate(d, b)).then(c, d => {
     t(`failed to asynchronously prepare wasm: ${d}`);
     Ca(d);
   });
