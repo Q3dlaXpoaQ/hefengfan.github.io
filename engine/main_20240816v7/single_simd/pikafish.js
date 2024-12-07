@@ -204,7 +204,7 @@ function Ca(a) {
   throw a;
 }
 var Da = a => a.startsWith("data:application/octet-stream;base64,"), F;
-F = "/pikafish.wasm";
+F = "https://xiangqiai.com/engine/main_20240816v7/single_simd/pikafish.wasm";
 if (!Da(F)) {
   var Ea = F;
   F = f.locateFile ? f.locateFile(Ea, x) : x + Ea;
@@ -234,6 +234,7 @@ function Ha(a, b, c) {
 }
 function Ia(a, b) {
   var c = F;
+  co
   return oa || "function" != typeof WebAssembly.instantiateStreaming || Da(c) || "function" != typeof fetch ? Ha(c, a, b) : fetch(c, {credentials:"same-origin"}).then(d => WebAssembly.instantiateStreaming(d, a).then(b, function(e) {
     t(`wasm streaming compile failed: ${e}`);
     t("falling back to ArrayBuffer instantiation");
