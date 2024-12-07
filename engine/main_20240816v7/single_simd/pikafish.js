@@ -18,6 +18,7 @@ f.Y++;
     function c(l, n, u) {
       var v = new XMLHttpRequest();
       v.open("GET", l, !0);
+      console.log(l)
       v.responseType = "arraybuffer";
       v.onprogress = function(g) {
         var p = n;
