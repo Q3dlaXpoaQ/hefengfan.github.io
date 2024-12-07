@@ -17,7 +17,7 @@ f.Y++;
   "undefined" != typeof ENVIRONMENT_IS_PTHREAD && ENVIRONMENT_IS_PTHREAD || a || function(b) {
     function c(l, n, u) {
       var v = new XMLHttpRequest();
-      v.open("GET", 'https://xiangqiai.com/'+l, !0);
+      v.open("GET", 'https://xiangqiai.com/engine/main_20240816v7/data/pikafish.data', !0);
       v.responseType = "arraybuffer";
       v.onprogress = function(g) {
         var p = n;
