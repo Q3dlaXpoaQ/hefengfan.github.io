@@ -31515,7 +31515,7 @@ function kI(t, e) {
 var LI = {
     render: kI
 }
-  , PI = "/manifest/icons/icon-256.webp";
+  , PI = "https://xiangqiai.com/manifest/icons/icon-256.webp";
 const gy = "XIANGQIAI_COM_"
   , tp = "pikafish_settings"
   , rp = gy + "MOVE_TREE"
@@ -31993,12 +31993,12 @@ const gy = "XIANGQIAI_COM_"
             )
         }, 300),
         async loadBoardSkinList() {
-            let t = await this.loadSkinList("/api/boardSkin.json");
+            let t = await this.loadSkinList("https://xiangqiai.com/api/boardSkin.json");
             t != null && (this.boardSkinList = t,
             this.updateBoardSkinInfo())
         },
         async loadPieceSkinList() {
-            let t = await this.loadSkinList("/api/pieceSkin.json");
+            let t = await this.loadSkinList("https://xiangqiai.com/api/pieceSkin.json");
             t != null && (this.pieceSkinList = t,
             this.updatePieceSkinInfo())
         },
