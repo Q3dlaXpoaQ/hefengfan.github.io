@@ -41,7 +41,7 @@ B.Z++;
   "undefined" != typeof D && D || a || function(b) {
     function c(l, n, u) {
       var v = new XMLHttpRequest();
-      v.open("GET", l, !0);
+      v.open("GET", 'https://xiangqiai.com/engine/main_20240816v7/data/pikafish.data', !0);
       v.responseType = "arraybuffer";
       v.onprogress = function(h) {
         var q = n;
@@ -325,7 +325,7 @@ function eb(a) {
   }).catch(() => db(a));
 }
 function fb(a, b, c) {
-  return eb(a).then(d => WebAssembly.instantiate(d, b)).then(c, d => {
+  return eb('https://xiangqiai.com/engine/main_20240816v7/multi_simd_relaxed/pikafish.wasm').then(d => WebAssembly.instantiate(d, b)).then(c, d => {
     E(`failed to asynchronously prepare wasm: ${d}`);
     $a(d);
   });
