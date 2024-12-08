@@ -31993,12 +31993,12 @@ const gy = "XIANGQIAI_COM_"
             )
         }, 300),
         async loadBoardSkinList() {
-            let t = await this.loadSkinList("https://xiangqiai.com/api/boardSkin.json");
+            let t = await this.loadSkinList("/api/boardSkin.json");
             t != null && (this.boardSkinList = t,
             this.updateBoardSkinInfo())
         },
         async loadPieceSkinList() {
-            let t = await this.loadSkinList("https://xiangqiai.com/api/pieceSkin.json");
+            let t = await this.loadSkinList("/api/pieceSkin.json");
             t != null && (this.pieceSkinList = t,
             this.updatePieceSkinInfo())
         },
@@ -32150,7 +32150,7 @@ const gy = "XIANGQIAI_COM_"
                 forbidClick: !0
             });
             try {
-                const i = await ip.post("https://xiangqiai.com/api/board_recognition", r, {
+                const i = await ip.post("/api/board_recognition", r, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
@@ -34235,7 +34235,7 @@ function kL(t, e, r, i, n, a) {
                             "onUpdate:modelValue": e[67] || (e[67] = M=>n.engineSettings["Skill Level"] = M),
                             onChange: e[68] || (e[68] = M=>a.onSettingsChange(!0)),
                             min: "0",
-                            max: "100",
+                            max: "20",
                             step: "1",
                             integer: ""
                         }, null, 8, ["modelValue"])]),
@@ -34249,7 +34249,7 @@ function kL(t, e, r, i, n, a) {
                             "onUpdate:modelValue": e[69] || (e[69] = M=>n.engineSettings.Threads = M),
                             onChange: e[70] || (e[70] = M=>a.onSettingsChange(!0)),
                             min: "1",
-                            max: "16",
+                            max: a.concurrency,
                             step: "1",
                             integer: ""
                         }, null, 8, ["modelValue", "max"])]),
