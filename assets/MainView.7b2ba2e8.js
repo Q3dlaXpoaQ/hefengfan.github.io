@@ -31993,14 +31993,8 @@ const gy = "XIANGQIAI_COM_"
             )
         }, 300),
         async loadBoardSkinList() {
-            let t = await this.loadSkinList("https://xiangqiai.com/api/boardSkin.json");
-            t != null && (this.boardSkinList = t,
-            this.updateBoardSkinInfo())
         },
         async loadPieceSkinList() {
-            let t = await this.loadSkinList("https://xiangqiai.com/api/pieceSkin.json");
-            t != null && (this.pieceSkinList = t,
-            this.updatePieceSkinInfo())
         },
         updateBoardSkinInfo() {
             let t = this.uiSettings.boardSkin.name
