@@ -31580,10 +31580,10 @@ const gy = "XIANGQIAI_COM_"
                 depth: 60,
                 enable_hint: !0,
                 chessdb: {
-                    query: 0,
-                    auto_move: 0,
+                    query: !1,
+                    auto_move: !1,
                     disable_ply: 10,
-                    always_use_egtb: 0
+                    always_use_egtb: !1
                 }
             },
             uiSettings: {
