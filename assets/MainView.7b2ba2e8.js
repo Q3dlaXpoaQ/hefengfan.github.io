@@ -31515,7 +31515,7 @@ function kI(t, e) {
 var LI = {
     render: kI
 }
-  , PI = "/manifest/icons/icon-256.webp";
+  , PI = "https://xiangqiai.com/manifest/icons/icon-256.webp";
 const gy = "XIANGQIAI_COM_"
   , tp = "pikafish_settings"
   , rp = gy + "MOVE_TREE"
@@ -31580,10 +31580,10 @@ const gy = "XIANGQIAI_COM_"
                 depth: 60,
                 enable_hint: !0,
                 chessdb: {
-                    query: !0,
-                    auto_move: !0,
+                    query: 0,
+                    auto_move: 0,
                     disable_ply: 10,
-                    always_use_egtb: !0
+                    always_use_egtb: 0
                 }
             },
             uiSettings: {
@@ -32144,7 +32144,7 @@ const gy = "XIANGQIAI_COM_"
                 forbidClick: !0
             });
             try {
-                const i = await ip.post("https://xiangqiai.com/api/board_recognition", r, {
+                const i = await ip.post("/api/board_recognition", r, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
