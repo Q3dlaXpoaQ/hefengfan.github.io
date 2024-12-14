@@ -32144,7 +32144,7 @@ const gy = "XIANGQIAI_COM_"
                 forbidClick: !0
             });
             try {
-                const i = await ip.post("/api/board_recognition", r, {
+                const i = await ip.post("https://xiangqiai.com/api/board_recognition", r, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
